@@ -79,8 +79,9 @@ window.draw = () => {
 	shaders[iFinal].setUniform('uIsDownsampling', false);
 	shaders[iFinal].setUniform('uIsUpsampling', true);
 	shaders[iFinal].setUniform('uTexture', graphics[1]);
-	shaders[iFinal].setUniform('uFinalStep', true);
-	shaders[iFinal].setUniform('uOriginal', graphics[0]);
+
+	// shaders[iFinal].setUniform('uFinalStep', true); // uncomment
+	// shaders[iFinal].setUniform('uOriginal', graphics[0]); // uncomment
 	graphics[iFinal].rect(0, 0, ...sizes[0]);
 
 	image(graphics[iFinal], 0.5 * width, 0);

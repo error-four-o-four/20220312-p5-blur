@@ -64,20 +64,5 @@ void main() {
 	}
 
 	gl_FragColor = rgba;
-	// gl_FragColor = texture2D(uOriginal, vTexCoord);
-	// gl_FragColor = vec4(vTexCoord, 0, 1);
 }
-
-// void main() {
-// 	vec2 uv = (vTexCoord + 1.)/2.;
-// 	// vec2 uv = (gl_FragCoord.xy - .5 * uResolution.xy) / uResolution.y;
-// 	// vec3 tex = texture2D(uTexture, vTexCoord).rgb;
-// 	vec4 rgba = vec4(0);
-// 	rgba = blur(vTexCoord, uTexture, 1.);
-// 	rgba.a = 1.;
-
-// 	// gl_FragColor = vec4(uv, 0., 1.);
-// 	// gl_FragColor = vec4(tex, 1.);
-// 	gl_FragColor = rgba;
-// }
 `;
