@@ -4,7 +4,7 @@ import { vert, frag } from './shader.js';
 const wrap = document.getElementById('canvas-wrap');
 const getWrapSize = () => [wrap.offsetWidth, wrap.offsetHeight];
 
-const nPasses = 3;
+const nPasses = 5;
 const shaders = [];
 const buffers = [];
 const graphics = [];
@@ -77,21 +77,27 @@ window.draw = () => {
 			graphics[i].push();
 			graphics[i].shader(shaders[i]);
 			graphics[i].rect(-0.5 * sizes[i][0], -0.5 * sizes[i][1], sizes[i][0], sizes[i][1]);
+			// graphics[i].plane(sizes[i][0], sizes[i][1]);
 			graphics[i].pop();
 		});
 		graphics[i].push();
-		graphics[i].texture(buffers[i].color);
-		graphics[i].plane(sizes[i][0], -sizes[i][1]);
+		// graphics[i].image(buffers[i].color, 0, 0);
+		// graphics[i].image(buffers[i].color, -0.5 * sizes[i][0], -0.5 * sizes[i][1]);
+		graphics[i].image(buffers[i].color, -0.5 * sizes[i][0], 0.5 * sizes[i][1], sizes[i][0], -sizes[i][1]);
+		// graphics[i].texture(buffers[i].color);
+		// graphics[i].rect(-0.5 * sizes[i][0], 0.5 * sizes[i][1], sizes[i][0], -sizes[i][1]); // 53.669940924871945
+		// graphics[i].plane(sizes[i][0], -sizes[i][1]); // 54.96485444038169
 		graphics[i].pop();
 
-		if (n < nn) {
-			image(graphics[i], x, 0.5 * height + 8);
-			x += graphics[i].width + 8;
-		}
-		else {
-			image(graphics[i], 0.5 * width, 0);
-		}
+		// if (n < nn) {
+		// 	image(graphics[i], x, 0.5 * height + 8);
+		// 	x += graphics[i].width + 8;
+		// }
+		// else {
+		// 	image(graphics[i], 0.5 * width, 0);
+		// }
 	}
+	image(graphics[0], 0.5 * width, 0);
 
 	if (frameCount % 15 === 0) fps = frameRate();
 	push();

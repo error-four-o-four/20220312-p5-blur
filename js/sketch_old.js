@@ -77,9 +77,9 @@ window.draw = () => {
 		shaders[i].setUniform('uTexture', graphics[j]);
 		graphics[i].rect(0, 0, ...sizes[i]);
 
-		image(graphics[i], x, 0.5 * height + 8);
+		// image(graphics[i], x, 0.5 * height + 8);
 
-		x += graphics[i].width + 8;
+		// x += graphics[i].width + 8;
 	}
 
 	graphics[iFinal].shader(shaders[iFinal]);
