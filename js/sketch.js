@@ -10,13 +10,10 @@ const buffers = [];
 const graphics = [];
 const createCustomGraphic = (w, h, r = 'p2d', p = window) => new p5.Graphics(w, h, r, p).pixelDensity(1).noStroke();
 const getGraphicSizes = (w, h) => [...Array.from({ length: nPasses }).keys()].map((v) => [~~(w / 2 ** v), ~~(h / 2 ** v)]);
-const getRectSize = (s) => [-0.5 * s[0], -0.5 * s[1], s[0], s[1]];
 
 let original;
 let sizes = [];
 let fps = 0;
-
-let acc = 0;
 
 /////////////////////////////////////////////
 window.setup = () => {
@@ -30,7 +27,6 @@ window.setup = () => {
 		graphics[i] = createCustomGraphic(...sizes[i], WEBGL);
 		buffers[i] = new Framebuffer(graphics[i]);
 		shaders[i] = new p5.Shader(graphics[i]._renderer, vert, frag);
-		// shaders[i] = graphics[i].createShader(vert, frag);
 	}
 };
 window.windowResized = () => {
@@ -44,14 +40,14 @@ window.windowResized = () => {
 };
 /////////////////////////////////////////////
 window.draw = () => {
-	if (frameCount < 6000) {
-		if (frameCount % 600 === 0) console.log('counting', acc / frameCount, frameRate());
-		acc += frameRate();
-	} else {
-		console.log(acc / frameCount);
-		noLoop();
-		return;
-	}
+	// if (frameCount < 6000) {
+	// 	if (frameCount % 600 === 0) console.log('counting', acc / frameCount, frameRate());
+	// 	acc += frameRate();
+	// } else {
+	// 	console.log(acc / frameCount);
+	// 	noLoop();
+	// 	return;
+	// }
 	clear();
 
 	original.push();
@@ -77,25 +73,19 @@ window.draw = () => {
 			graphics[i].push();
 			graphics[i].shader(shaders[i]);
 			graphics[i].rect(-0.5 * sizes[i][0], -0.5 * sizes[i][1], sizes[i][0], sizes[i][1]);
-			// graphics[i].plane(sizes[i][0], sizes[i][1]);
 			graphics[i].pop();
 		});
 		graphics[i].push();
-		// graphics[i].image(buffers[i].color, 0, 0);
-		// graphics[i].image(buffers[i].color, -0.5 * sizes[i][0], -0.5 * sizes[i][1]);
 		graphics[i].image(buffers[i].color, -0.5 * sizes[i][0], 0.5 * sizes[i][1], sizes[i][0], -sizes[i][1]);
-		// graphics[i].texture(buffers[i].color);
-		// graphics[i].rect(-0.5 * sizes[i][0], 0.5 * sizes[i][1], sizes[i][0], -sizes[i][1]); // 53.669940924871945
-		// graphics[i].plane(sizes[i][0], -sizes[i][1]); // 54.96485444038169
 		graphics[i].pop();
 
-		// if (n < nn) {
-		// 	image(graphics[i], x, 0.5 * height + 8);
-		// 	x += graphics[i].width + 8;
-		// }
-		// else {
-		// 	image(graphics[i], 0.5 * width, 0);
-		// }
+		if (n < nn) {
+			image(graphics[i], x, 0.5 * height + 8);
+			x += graphics[i].width + 8;
+		}
+		else {
+			image(graphics[i], 0.5 * width, 0);
+		}
 	}
 	image(graphics[0], 0.5 * width, 0);
 
@@ -107,8 +97,8 @@ window.draw = () => {
 	pop();
 };
 
-window.keyPressed = () => {
-	if (keyCode !== 83) return;
+// window.keyPressed = () => {
+// 	if (keyCode !== 83) return;
 
-	saveCanvas(`export_${Date.now()}`, `png`);
-};
+// 	saveCanvas(`export_${Date.now()}`, `png`);
+// };
